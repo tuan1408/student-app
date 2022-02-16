@@ -1,0 +1,16 @@
+.card {
+  max-width: 500px;
+  margin: 100px auto;
+}
+
+.title {
+  padding: 20px;
+}
+
+.form-group {
+  padding: 20px;
+}
+
+/* .content {
+  padding: 20px;
+} */
