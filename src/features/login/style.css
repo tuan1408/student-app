@@ -11,6 +11,7 @@
   padding: 20px;
 }
 
-/* .content {
-  padding: 20px;
-} */
+.content {
+  max-width: 500px;
+  margin: 0 auto;
+}

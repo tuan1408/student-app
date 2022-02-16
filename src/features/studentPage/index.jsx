@@ -11,38 +11,51 @@ import {
   PaginationLink,
   Table,
 } from "reactstrap";
+import "./style.css";
 
 function StudentPage(props) {
   return (
-    <div className="mx-2">
+    <div className="cover">
       <div className="d-flex align-items-center justify-content-between">
         <h1 className="title">Danh sach sinh vien</h1>
         <Link to="/page/add" className="btn btn-primary">
           Them sinh vien
         </Link>
       </div>
-      <div className="d-flex align-items-center justify-content-between">
-        <Form className="d-flex align-items-center justify-content-between gap-5">
-          <FormGroup>
+      <div className="row p-2 justify-content-between">
+        <Form className="row col-md-8 col-xl-6">
+          <FormGroup className="col-md-3">
             <Label htmlFor="name">Ho va Ten</Label>
-            <Input type="text" id="name" name="name" />
+            <Input
+              onChange={(e) => {
+                console.log("log", e.target.value);
+              }}
+              type="text"
+              id="name"
+              name="name"
+            />
           </FormGroup>
-          <FormGroup>
+
+          <FormGroup className="col-md-3">
             <Label htmlFor="name">Ma ho so</Label>
             <Input type="text" id="maso" name="maso" />
           </FormGroup>
 
-          <FormGroup>
+          <FormGroup className="col-md-3">
             <Label htmlFor="masinhvien">Ma sinh vien</Label>
             <Input type="text" id="masinhvien" name="masinhvien" />
           </FormGroup>
-          <Button color="primary" className="mt-3">
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </Button>
+
+          <FormGroup className="mt-md-3 col-md-3 mb-md-3 ">
+            <Button color="primary" className="mt-3">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </Button>
+          </FormGroup>
         </Form>
-        <div>
-          <div className="input-group mt-3">
-            <div className="form-outline">
+
+        <div className="col-md-4 col-xl-6">
+          <div className="input-group margin-serch">
+            <div className="form-outline flex-grow-1">
               <Input
                 type="search"
                 id="form1"
@@ -77,60 +90,60 @@ function StudentPage(props) {
         <tbody>
           <tr>
             <th>1</th>
-            <th>TVU0192</th>
-            <th>123456789</th>
-            <th>Nguyen Van A</th>
-            <th>Nam</th>
-            <th>29/12/2000</th>
-            <th>0942472911</th>
-            <th>anguyenvan@gmail.com</th>
-            <th>Quang Ninh</th>
-            <th>022099001997</th>
-            <th>Thanh Xuan, Ha Noi</th>
-            <th className="d-flex">
+            <td>TVU0192</td>
+            <td>123456789</td>
+            <td>Nguyen Van A</td>
+            <td>Nam</td>
+            <td>29/12/2000</td>
+            <td>0942472911</td>
+            <td>anguyenvan@gmail.com</td>
+            <td>Quang Ninh</td>
+            <td>022099001997</td>
+            <td>thanh Xuan, Ha Noi</td>
+            <td className="d-flex">
               <Button color="primary">create</Button>
               <Button className="ms-3" color="danger">
                 delete
               </Button>
-            </th>
-          </tr>
-          <tr>
-            <th>2</th>
-            <th>TVU0192</th>
-            <th>123456789</th>
-            <th>Nguyen Van A</th>
-            <th>Nam</th>
-            <th>29/12/2000</th>
-            <th>0942472911</th>
-            <th>anguyenvan@gmail.com</th>
-            <th>Quang Ninh</th>
-            <th>022099001997</th>
-            <th>Thanh Xuan, Ha Noi</th>
-            <th className="d-flex">
-              <Button color="primary">create</Button>
-              <Button className="ms-3" color="danger">
-                delete
-              </Button>
-            </th>
+            </td>
           </tr>
           <tr>
             <th>1</th>
-            <th>TVU0192</th>
-            <th>123456789</th>
-            <th>Nguyen Van A</th>
-            <th>Nam</th>
-            <th>29/12/2000</th>
-            <th>0942472911</th>
-            <th>anguyenvan@gmail.com</th>
-            <th>Quang Ninh</th>
-            <th>022099001997</th>
-            <th>Thanh Xuan, Ha Noi</th>
-            <th className="d-flex">
+            <td>TVU0192</td>
+            <td>123456789</td>
+            <td>Nguyen Van A</td>
+            <td>Nam</td>
+            <td>29/12/2000</td>
+            <td>0942472911</td>
+            <td>anguyenvan@gmail.com</td>
+            <td>Quang Ninh</td>
+            <td>022099001997</td>
+            <td>thanh Xuan, Ha Noi</td>
+            <td className="d-flex">
               <Button color="primary">create</Button>
               <Button className="ms-3" color="danger">
                 delete
               </Button>
-            </th>
+            </td>
+          </tr>
+          <tr>
+            <th>1</th>
+            <td>TVU0192</td>
+            <td>123456789</td>
+            <td>Nguyen Van A</td>
+            <td>Nam</td>
+            <td>29/12/2000</td>
+            <td>0942472911</td>
+            <td>anguyenvan@gmail.com</td>
+            <td>Quang Ninh</td>
+            <td>022099001997</td>
+            <td>thanh Xuan, Ha Noi</td>
+            <td className="d-flex">
+              <Button color="primary">create</Button>
+              <Button className="ms-3" color="danger">
+                delete
+              </Button>
+            </td>
           </tr>
         </tbody>
       </Table>

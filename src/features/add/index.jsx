@@ -1,237 +1,327 @@
-import { ErrorMessage, FastField, Formik } from "formik";
-import React, { memo, useMemo, useState } from "react";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import InputField from "../../custom-fields/InputField";
+import { useFormik } from "formik";
+import React, { useState } from "react";
 import "./style.css";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Button, Card, CardBody, Collapse } from "reactstrap";
 
-function AddItem(props) {
-  const [selectState, setChangeSlectState] = useState("");
-  console.log("1223");
-  const handleChangeSelect = (e) => {
-    console.log("123");
-    setChangeSlectState(e.target.value);
-  };
-
-  const initialvalue = {
-    maso: "",
-    masosinhvien: "",
-    prename: "",
-    name: "",
-    selectState: "",
-  };
-
-  const validationSchema = Yup.object().shape({
-    maso: Yup.string().required("ma ho so is required"),
-    masosinhvien: Yup.string().required("ma sinh vien is required"),
-    prename: Yup.string().required("ho dem is required"),
-    name: Yup.string().required("ten is required"),
+function AddItem() {
+  const formik = useFormik({
+    initialValues: {
+      maso: "",
+      masosinhvien: "",
+      prename: "",
+      name: "",
+      date: "",
+      sex: "",
+      place: "",
+      ethnic: "",
+      religion: "",
+      identity: "",
+      dateRange: "",
+      graduate: "",
+      issued: "",
+      phone: "",
+      email: "",
+      address: "",
+      note: "",
+    },
+    validationSchema: Yup.object({
+      maso: Yup.string().required("This Field Is Required!"),
+      masosinhvien: Yup.string().required("This Field Is Required!"),
+      graduate: Yup.string().required("This Field Is Required!"),
+      prename: Yup.string().required("This Field Is Required!"),
+      sex: Yup.string().required("This Field Is Required!"),
+      name: Yup.string().required("This Field Is Required!"),
+      place: Yup.string().required("This Field Is Required!"),
+      email: Yup.string()
+        .email("Invalid email format")
+        .required("This Field Is Required!"),
+    }),
+    onSubmit: (values) => {
+      console.log(JSON.stringify(values, null, 2));
+    },
   });
 
-  const handleSubmit = (e, data) => {
-    e.preventdefault();
-    console.log("data", data);
+  const handleCancle = () => {
+    console.log("cancle");
   };
 
-  const handlechange = () => {
-    console.log("change");
+  const [isCollapse, setIsCollapse] = useState(true);
+
+  const handleClick = () => {
+    setIsCollapse(!isCollapse);
   };
 
   return (
     <div className="container mb-5">
       <h1 className="title text-center">Them moi sinh vien</h1>
-      <Formik initialValues={initialvalue} validationSchema={validationSchema}>
-        <Form className="form-add">
-          <h3 className="mb-5">Thong tin co ban</h3>
-          {console.log("he")}
-          <FormGroup className="row">
-            <div className="col-6">
-              <Label htmlFor="maso">
-                <b className="text-warning">*</b> Ma ho so
-              </Label>
-              <FastField
-                name="maso"
-                type="text"
-                component={InputField}
-                className="form-control form-control-lg"
-                onChange={handlechange}
-              />
-            </div>
-            <div className="col-6">
-              <Label htmlFor="masosinhvien">
-                <b className="text-warning">*</b> Ma sinh vien
-              </Label>
-              <FastField
-                name="masosinhvien"
-                type="text"
-                component={InputField}
-                className="form-control form-control-lg"
-              />
-            </div>
-          </FormGroup>
-          <FormGroup className="row">
-            <div className="col-6">
-              <Label htmlFor="prename">
-                <b className="text-warning">*</b> Ho dem
-              </Label>
-              <FastField
-                name="prename"
-                type="text"
-                component={InputField}
-                className="form-control form-control-lg"
-              />
-            </div>
-            <div className="col-6">
-              <Label htmlFor="name">
-                <b className="text-warning">*</b> Ten
-              </Label>
-              <FastField
-                name="name"
-                type="text"
-                component={InputField}
-                className="form-control form-control-lg"
-              />
-            </div>
-          </FormGroup>
-          <FormGroup className="row">
-            <div className="col-4">
-              <Label>
-                <b className="text-warning">*</b> Gioi tinh
-              </Label>
-              <select
-                className="form-select"
-                value={selectState}
-                onChange={handleChangeSelect}
-              >
-                <option defaultValue="Gioi tinh">Gioi tinh</option>
-                <option value="1">Nam</option>
-                <option value="2">Nu</option>
-                <option value="3">Khac</option>
-              </select>
-            </div>
-            <div className="col-4">
-              <FormGroup>
-                <Label htmlFor="date">
-                  <b className="text-warning">*</b> Ngay sinh
-                </Label>
-                <Input type="date" name="date" id="date" />
-              </FormGroup>
-            </div>
-            <div className="col-4">
-              <FormGroup>
-                <Label htmlFor="place">
-                  <b className="text-warning">*</b> Noi sinh
-                </Label>
-                <Input type="text" name="place" id="place" />
-              </FormGroup>
-            </div>
-          </FormGroup>
-          <FormGroup className="row">
-            <div className="col-6">
-              <FormGroup>
-                <Label htmlFor="ethnic">Dan toc</Label>
-                <Input type="text" name="ethnic" id="ethnic" />
-              </FormGroup>
-            </div>
-            <div className="col-6">
-              <FormGroup>
-                <Label htmlFor="religion">Ton giao</Label>
-                <Input type="text" name="religion" id="religion" />
-              </FormGroup>
-            </div>
-          </FormGroup>
 
-          <FormGroup className="row">
-            <div className="col-4">
-              <FormGroup>
-                <Label htmlFor="identity">So CCCD</Label>
-                <Input type="text" name="identity" id="identity" />
-              </FormGroup>
-            </div>
-            <div className="col-4">
-              <FormGroup>
-                <Label htmlFor="dateRange">Ngay cap</Label>
-                <Input type="date" name="dateRange" id="dateRange" />
-              </FormGroup>
-            </div>
-            <div className="col-4">
-              <FormGroup>
-                <Label htmlFor="issued">Noi cap</Label>
-                <Input type="text" name="issued" id="issued" />
-              </FormGroup>
-            </div>
-          </FormGroup>
+      <h3 onClick={handleClick}>Thong tin co ban</h3>
+      <Collapse isOpen={isCollapse}>
+        <Card>
+          <CardBody>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="row">
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Ma ho so
+                  </label>
+                  <input
+                    type="text"
+                    name="maso"
+                    value={formik.values.maso}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                  {formik.errors.maso && formik.touched.maso && (
+                    <p className="text-danger">{formik.errors.maso}</p>
+                  )}
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Ma sinh vien
+                  </label>
+                  <input
+                    type="text"
+                    name="masosinhvien"
+                    value={formik.values.masosinhvien}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                  {formik.errors.masosinhvien &&
+                    formik.touched.masosinhvien && (
+                      <p className="text-danger">
+                        {formik.errors.masosinhvien}
+                      </p>
+                    )}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Ho dem
+                  </label>
+                  <input
+                    type="text"
+                    name="prename"
+                    value={formik.values.prename}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                  {formik.errors.prename && formik.touched.prename && (
+                    <p className="text-danger">{formik.errors.prename}</p>
+                  )}
+                </div>
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Ten
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                  {formik.errors.name && formik.touched.name && (
+                    <p className="text-danger">{formik.errors.name}</p>
+                  )}
+                </div>
+              </div>
 
-          <FormGroup className="row">
-            <div className="col-6">
-              <FormGroup>
-                <Label htmlFor="phone">Dien thoai</Label>
-                <Input type="number" name="phone" id="phone" />
-              </FormGroup>
-            </div>
-            <div className="col-6">
-              <FormGroup>
-                <Label htmlFor="email">
-                  <b className="text-warning">*</b> Email
-                </Label>
-                <Input type="email" name="email" id="email" />
-              </FormGroup>
-            </div>
-          </FormGroup>
-          <FormGroup className="row">
-            <div className="col-12">
-              <FormGroup>
-                <Label htmlFor="address">Dia chi lien he</Label>
-                <Input
-                  type="text"
-                  name="address"
-                  id="address"
-                  className="w-50"
-                />
-              </FormGroup>
-            </div>
-          </FormGroup>
-          <FormGroup className="row">
-            <div className="col-6">
-              <FormGroup>
-                <Label htmlFor="note">Ghi chu</Label>
-                <Input type="text" name="note" id="note" />
-              </FormGroup>
-            </div>
-            <div className="col-6">
-              <FormGroup>
-                <Label>
-                  <b className="text-warning">*</b> Trang thai sinh vien
-                </Label>
-                <select className="form-select">
-                  <option defaultValue="Chon trang thai">
-                    Chon trang thai
-                  </option>
-                  <option value="1">Da tot nghiep</option>
-                  <option value="2">Chua tot nghiep</option>
-                </select>
-              </FormGroup>
-            </div>
-          </FormGroup>
-          {console.log("he2")}
+              <div className="row">
+                <div className="col-12 col-md-4">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Gioi tinh
+                  </label>
+                  <select
+                    className="form-select form-control form-control-lg"
+                    name="sex"
+                    value={formik.values.sex}
+                    onChange={formik.handleChange}
+                  >
+                    <option defaultValue="">Gioi tinh</option>
+                    <option value="1">Nam</option>
+                    <option value="2">Nu</option>
+                    <option value="3">Khac</option>
+                  </select>
+                </div>
 
-          <FormGroup className="mb-5">
-            {console.log("he3")}
+                <div className="col-12 col-md-4">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Ngay sinh
+                  </label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={formik.values.date}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                  {formik.errors.date && formik.touched.date && (
+                    <p className="text-danger">{formik.errors.date}</p>
+                  )}
+                </div>
+                <div className="col-12 col-md-4">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Noi sinh
+                  </label>
+                  <input
+                    type="text"
+                    name="place"
+                    value={formik.values.place}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                  {formik.errors.place && formik.touched.place && (
+                    <p className="text-danger">{formik.errors.place}</p>
+                  )}
+                </div>
+              </div>
 
-            <Button
-              color="primary"
-              type="submit"
-              onClick={() => console.log("123")}
-            >
-              Them moi
-            </Button>
-            <Button color="danger" className="ms-3">
-              Huy
-            </Button>
-          </FormGroup>
-        </Form>
-      </Formik>
+              <div className="row">
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">Dan toc</label>
+                  <input
+                    type="text"
+                    name="ethnic"
+                    value={formik.values.ethnic}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                </div>
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">Ton giao</label>
+                  <input
+                    type="text"
+                    name="religion"
+                    value={formik.values.religion}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-12 col-md-4">
+                  <label htmlFor="">So CCCD</label>
+                  <input
+                    type="text"
+                    name="identity"
+                    value={formik.values.identity}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                </div>
+                <div className="col-12 col-md-4">
+                  <label htmlFor="">Ngay cap</label>
+                  <input
+                    type="date"
+                    name="dateRange"
+                    value={formik.values.dateRange}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                </div>
+                <div className="col-12 col-md-4">
+                  <label htmlFor="">Noi cap</label>
+                  <input
+                    type="text"
+                    name="issued"
+                    value={formik.values.issued}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">Dien thoai</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={formik.values.phone}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                </div>
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                  {formik.errors.email && formik.touched.email && (
+                    <p className="text-danger">{formik.errors.email}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-12">
+                  <label>Dia chi lien he</label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formik.values.address}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">Ghi chu</label>
+                  <input
+                    type="text"
+                    name="note"
+                    value={formik.values.note}
+                    onChange={formik.handleChange}
+                    className="form-control form-control-lg"
+                  />
+                </div>
+                <div className="col-12 col-md-6">
+                  <label htmlFor="">
+                    <b className="text-warning">*</b> Trang thai sinh vien
+                  </label>
+                  <select
+                    className="form-select form-control form-control-lg"
+                    name="graduate"
+                    value={formik.values.graduate}
+                    onChange={formik.handleChange}
+                  >
+                    <option defaultValue="Chon trang thai">
+                      Chon trang thai
+                    </option>
+                    <option value="1">Da tot nghiep</option>
+                    <option value="2">Chua tot nghiep</option>
+                  </select>
+                </div>
+              </div>
+              <div className="mb-5 mt-5 text-center">
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger ms-3"
+                  onClick={handleCancle}
+                  color="primary"
+                >
+                  Cancle
+                </button>
+              </div>
+            </form>
+          </CardBody>
+        </Card>
+      </Collapse>
     </div>
   );
 }
